@@ -13,9 +13,7 @@ import sys
 ratingID = 'rating'
 percentileID = 'blahblah'
 
-@app.route('/')
-def hello_world():
-    return 'Hello to the World of F!'
+
 
 headers = {}
 stats = {}
@@ -64,6 +62,14 @@ def get_daily_data(year):
     hmin = stats.min()
     hmax = stats.max()
 
+@app.route('/',methods=['GET','POST'])
+def home():
+    return "NBA Player Rating Server"
+
+@app.route('/test',methods=['GET','POST'])
+def test():
+    return "NBA Player Rating Server"
+
 @app.route('/data',methods=['GET', 'POST'])
 def get_data():
     global headers
@@ -91,13 +97,6 @@ def get_data():
         elif header not in metadata.keys():
             to_remove.append(header)
     ss = ss.drop(to_remove,axis=1)
-
-
-    # for header in reqWeights.keys():
-    #     try:
-    #         weights[header] = float(reqWeights[header])
-    #     except ValueError:
-    #         weights[header] = 0
 
         
     hs = list(ss)
@@ -130,7 +129,7 @@ def get_data():
             else:
                 ss[percentileID+header] = ((ss[header]-mean[header]) / (hmax[header] - mean[header]))
 
-
+    ss = ss.drop(scores,axis=1)
     hs = list(ss)
 
     ss = ss.round(3)
@@ -139,6 +138,8 @@ def get_data():
     return jsonify({"data": ss.to_json(orient='index'), "metadata":metadata, "minImpact": minImpact, "maxImpact": maxImpact})
 
 get_daily_data(2020)
+
+
 if __name__ == '__main__':
     app.run()
 
