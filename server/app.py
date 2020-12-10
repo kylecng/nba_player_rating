@@ -87,7 +87,7 @@ def get_data():
     print('METADATA',metadata)
     hs = headers
     ss = stats
-
+    ss = ss.dropna()
     # weights = {'3P':1,'FT':1,'TRB':1,'AST':1,'STL':1,'BLK':1,'TOV':1,'PTS':1,'Age':0,'G':0,'GS':0,'MP':0,'FG':0,'FGA':0,'FG%':0,'3PA':0,'3P%':0,'2P':0,'2PA':0,'2P%':0,'eFG%':0,'FTA':0,'FT%':0,'ORB':0,'DRB':0,'PF':0}
     
     to_remove = []
@@ -111,9 +111,6 @@ def get_data():
 
     minImpact = ss[scores].min().min()
     maxImpact = ss[scores].max().max()
-    print(scores)
-    print(minImpact)
-    print(maxImpact)
 
     ss['SCORE'] = ss[scores].sum(axis=1)
     ss = ss.sort_values(by='SCORE',ascending=False)
