@@ -6,6 +6,6 @@
 
 ### Tick a category to include it in the table
 
-![Alt text](webpage.jpg?raw=true "Webpage")
+![Alt text](webpage.png?raw=true "Webpage")
 
 ## https://nba-fantasy-rating.herokuapp.com/
